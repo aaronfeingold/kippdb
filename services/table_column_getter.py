@@ -15,8 +15,9 @@ class TableColumnGetter:
     for table in tables:
       table_name = table["table_name"]
       column_list = self.get_column_names(table_name=table_name)
-      new_obj = {f"{table_name}": f"{column_list}"}
-      tables_columns.append(new_obj)
+      new_dict = dict()
+      new_dict[table_name] = column_list
+      tables_columns.append(new_dict)
 
     return tables_columns
 
@@ -31,11 +32,5 @@ class TableColumnGetter:
       column_list.append(column_name)
     
     return column_list
-
-  
-
-
-
-
 
 
