@@ -1,12 +1,13 @@
 import pymssql
 import json
 import sys
-import ipdb
-from services.dbconn import GetCursor
+from services.dbconn import DBConnector
 from services.table_column_getter import TableColumnGetter
+import ipdb
 
 def run():
-  cursor = GetCursor.get_cursor()
+  dbc = DBConnector()
+  cursor = dbc.cursor
   tcg = TableColumnGetter(cursor=cursor)
   tc = tcg.tables_columns
   
