@@ -10,6 +10,7 @@ def run():
   cursor = dbc.cursor
   tcg = TableColumnGetter(cursor=cursor)
   tc = tcg.tables_columns
+  # TO-DO: send the tc to the formatter, then use formatted text to insert into google sheets doc.
   
   return tc
 

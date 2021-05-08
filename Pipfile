@@ -7,6 +7,9 @@ name = "pypi"
 pymssql = "*"
 numpy = "*"
 ipdb = "*"
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
 
 [dev-packages]
 pytest = "*"
