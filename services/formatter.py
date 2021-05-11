@@ -1,10 +1,13 @@
-import ipdb
+import pandas as pd
 import json
+import csv
+from google.oauth2 import service_account
 import pygsheets
+import ipdb
 
-# with open('service_account.json') as source:
-#     info = json.load(source)
-# credentials = service_account.Credentials.from_service_account_info(info)
+with open('service_account.json') as source:
+    info = json.load(source)
+credentials = service_account.Credentials.from_service_account_info(info)
 
 client = pygsheets.authorize(service_account_file='service_account.json')
 ipdb.set_trace()
