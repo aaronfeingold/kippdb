@@ -1,12 +1,31 @@
-class Formatter:
+import ipdb
+import json
+import pygsheets
 
-  def __init__(self, data):
-    self.data = data
-    self.formatted_messagge = self.google_sheets_formater()
+# with open('service_account.json') as source:
+#     info = json.load(source)
+# credentials = service_account.Credentials.from_service_account_info(info)
+
+client = pygsheets.authorize(service_account_file='service_account.json')
+ipdb.set_trace()
+# class Formatter:
+
+#   def __init__(self, array):
+#     self.array = array
+#     self.formatted_message = self.format_for_google_sheets()
 
 
-  def google_sheets_formater(self):
-    return self.data
+#   def format_for_google_sheets(self):
+#     ipdb.set_trace()
+#     # python array of dicts
+#     # assign key[i] = row[0], value = row[1]
+#     return self.tc
+
+#   def insert_into_gs(self):
+#     return self
+  
+
+
 
 
 
