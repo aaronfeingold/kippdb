@@ -27,7 +27,11 @@ class TableColumnGetter:
       table_name = table["table_name"]
       table_names.append(table_name)
 
-    return table_names
+    if table_names:
+      return table_names
+    else:
+      return "ERROR"
+    
     ipdb.set_trace()
 
 
