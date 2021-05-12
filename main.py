@@ -15,10 +15,17 @@ def run():
   # strings representing the column_names for that table.
   tc = tcg.tables_columns
   ## TO-DO: 
-  # send array of key-value pairs to the exporter
-  export = Exporter(tc=tc)
-  msg = export.to_google_sheets
+    # send array of key-value pairs to the exporter
+      # export = Exporter(tc=tc)
+  ## PROBLEM:
+    ## cannot export while VPN is connected
+    ## have attempted to write bash, expect, and python file to deal with Cisco VPN
+    ## did no get that working yet
+    ## current work around is to run main, then manually shut down VPN
+    ## then, run the exporter
+      # msg = export.to_google_sheets()
+      # return msg
   
-  return tc
+  
 
 print(run())

@@ -56,6 +56,10 @@ class TableColumnGetter:
       else:
         print("ERROR")
 
+    obj = {"tables": tables_columns}
+    with open('data.json', 'w') as file:
+      json.dump(obj, file)
+
     return tables_columns
 
 
