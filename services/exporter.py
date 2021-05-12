@@ -5,34 +5,15 @@ from google.oauth2 import service_account
 import pygsheets
 import ipdb
 
-with open('service_account.json') as source:
-    info = json.load(source)
-credentials = service_account.Credentials.from_service_account_info(info)
-
 client = pygsheets.authorize(service_account_file='service_account.json')
-
+url = "https://docs.google.com/spreadsheets/d/1A5M7Qyfjj-XTm6q_9A3xT_dv4pfutU0bRs6OxjiMax8/edit?usp=sharing"
+sheet_id = "1A5M7Qyfjj-XTm6q_9A3xT_dv4pfutU0bRs6OxjiMax8"
+spreadsheet = pygsheets.Spreadsheet(client=client, id=sheet_id)
+worksheet = spreadsheet.worksheet_by_title('NEW_WORKSHEET')
+addr = "A1"
+val = "HELLO WORLD"
+worksheet.update_value(addr, val, parse=None)
 ipdb.set_trace()
-
-print(sheet)
-
-# class Formatter:
-
-#   def __init__(self, array):
-#     self.array = array
-#     self.formatted_message = self.format_for_google_sheets()
-
-
-#   def format_for_google_sheets(self):
-#     ipdb.set_trace()
-#     # python array of dicts
-#     # assign key[i] = row[0], value = row[1]
-#     return self.tc
-
-#   def insert_into_gs(self):
-#     return self
-  
-
-
 
 
 
