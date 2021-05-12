@@ -1,7 +1,6 @@
 from services.dbconn import DBConnector
 from services.table_column_getter import TableColumnGetter
-# from services.formatter import Formatter
-# from services.exporter import GoogleSheetsExporter
+from services.exporter import Exporter
 import ipdb
 
 def run():
@@ -16,9 +15,9 @@ def run():
   # strings representing the column_names for that table.
   tc = tcg.tables_columns
   ## TO-DO: 
-  # send array of key-value pairs to the formatter
-  # return them for the exporter
-  # then use formatted text to insert into google sheets doc.
+  # send array of key-value pairs to the exporter
+  export = Exporter(tc=tc)
+  msg = export.to_google_sheets
   
   return tc
 

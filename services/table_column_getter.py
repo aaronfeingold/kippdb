@@ -10,6 +10,7 @@ class TableColumnGetter:
     self.tables_columns = self.getter()
   
   
+  # load in an exceptions, ie known troublemakers for syntax error
   def exceptions(self):
     secrets = json.loads(open("secrets.json").read())
     exceptions = secrets["exceptions"]
@@ -18,23 +19,30 @@ class TableColumnGetter:
 
 
   # Query and iterate for all array of table names to call get_column_names on
+  # Limit can be changed here, for now. would be better to use a range stored to a variable at initilization 
   def get_table_names_from_db(self):
     sql = "SELECT table_name FROM information_schema.tables"
     self.cursor.execute(sql)
     tables = self.cursor.fetchall()
+
+    limit = 10
     table_names = []
-    for table in tables:
-      table_name = table["table_name"]
-      table_names.append(table_name)
+
+    for index, table in enumerate(tables):
+      if index == limit:
+        break
+      else:
+        table_name = table["table_name"]
+        table_names.append(table_name)
 
     if table_names:
       return table_names
     else:
       return "ERROR"
-    
-    ipdb.set_trace()
 
 
+  # getter does the work of packaging up all info
+  # returns the ultimate query
   def getter(self):
     tables_columns = []
 
@@ -52,7 +60,6 @@ class TableColumnGetter:
 
 
   def list_all_table_names(tables):
-    ipdb.set_trace()
     tables_list = []
     for table in tables:
       table_name = table["table_name"]
