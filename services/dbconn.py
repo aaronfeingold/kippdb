@@ -2,7 +2,7 @@ import pymssql
 import json
 import ipdb
 
-class DBConnector:
+class GetDatabaseConnection:
 
   def __init__(self):
     self.conn = self.conn()

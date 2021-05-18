@@ -1,31 +1,30 @@
-from services.dbconn import DBConnector
-from services.table_column_getter import TableColumnGetter
-from services.exporter import Exporter
+from services.dbconn import GetDatabaseConnection
+from services.dbsearcher import DbSearcher
+# from services.exporter import Exporter
 import ipdb
 
+db_object_name = 'aimsweb'
+
 def run():
-  # use pymssql to connect to a db
-  dbc = DBConnector()
-  # set a variable to the returned object of dbc cursor
-  cursor = dbc.cursor
-  # use that cursor to query db
-  tcg = TableColumnGetter(cursor=cursor)
-  # returns an array containing a dict for every table
-  # for each, key is tablename, value is an array of 
-  # strings representing the column_names for that table.
-  tc = tcg.tables_columns
-  ## TO-DO: 
-    # send array of key-value pairs to the exporter
-      # export = Exporter(tc=tc)
-  ## PROBLEM:
-    ## cannot export while VPN is connected
-    ## have attempted to write bash, expect, and python file to deal with Cisco VPN
-    ## did no get that working yet
-    ## current work around is to run main, then manually shut down VPN
-    ## then, run the exporter
-      # msg = export.to_google_sheets()
-      # return msg
-  
+  dbc = GetDatabaseConnection()
+  dbs = DbSearcher(dbc)
+  tables_list = dbs.list_table_names_from_db()
+  result_list = []
+  for db_object_name in sorted(tables_list):
+    print(db_object_name)
+    obj = dict()
+    associated_views = dbs.find(source=db_object_name, targets="views")
+    associated_triggers = dbs.find(source=db_object_name, targets="triggers")
+    associated_stored_procedures = dbs.find(source=db_object_name, targets="stored_procedures")
+    result = {
+      "views": associated_views,
+      "triggers": associated_triggers,
+      "stored_procedures": associated_stored_procedures
+    }
+    obj[db_object_name] = result
+    result_list.append(obj)
+
+  return result_list
   
 
 print(run())
