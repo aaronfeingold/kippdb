@@ -1,8 +1,14 @@
-credentials.json
+# IGNORE
+.DS_Store
 secrets.json
 service_account.json
 token.json
-test.py
-.DS_Store
 data.json
-cisco_connect.py
+
+#CHACHE
+/services/__pycache__
+
+# Tests
+
+test.py
+test2.py

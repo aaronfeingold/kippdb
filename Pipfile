@@ -9,6 +9,7 @@ pygsheets = "*"
 google-api-python-client = "*"
 google-auth = "*"
 ipdb = "*"
+tableauserverclient = "*"
 
 [dev-packages]
 

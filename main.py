@@ -1,9 +1,5 @@
 from services.dbconn import GetDatabaseConnection
 from services.dbsearcher import DbSearcher
-# from services.exporter import Exporter
-import ipdb
-
-db_object_name = 'aimsweb'
 
 def run():
   dbc = GetDatabaseConnection()

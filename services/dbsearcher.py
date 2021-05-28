@@ -1,5 +1,3 @@
-import ipdb
-import numpy as np
 import json
 
 class DbSearcher:
@@ -8,16 +6,15 @@ class DbSearcher:
     self.dbc = dbc
     self.exceptions = self.exceptions()
 
+
   def find(self, source, targets):
     if targets == "views":
-      views = self.get_associated_views(source)
-      return views
+      return self.get_associated_views(source)
     if targets == "triggers":
-      triggers = self.get_associated_triggers(source)
-      return triggers
+      return self.get_associated_triggers(source)
     if targets == "stored_procedures":
-      procedures = self.get_associated_stored_procedures(source)
-      return procedures
+      return self.get_associated_stored_procedures(source)
+
 
 
   def get_associated_views(self, table_name):
@@ -25,7 +22,11 @@ class DbSearcher:
     self.dbc.cursor.execute(sql)
     views = self.dbc.cursor.fetchall()
 
-    return views
+    formatted_views = []
+    for view in views:
+      formatted_views.append(view['Name'])
+
+    return formatted_views
 
 
   def get_associated_triggers(self, table_name):
@@ -33,7 +34,11 @@ class DbSearcher:
     self.dbc.cursor.execute(sql)
     triggers = self.dbc.cursor.fetchall()
 
-    return triggers
+    formatted_triggers = []
+    for trigger in triggers:
+      formatted_triggers.append(trigger['Name'])
+
+    return formatted_triggers
 
 
   def get_associated_stored_procedures(self, table_name):
@@ -41,7 +46,11 @@ class DbSearcher:
     self.dbc.cursor.execute(sql)
     procedures = self.dbc.cursor.fetchall()
 
-    return procedures
+    formatted_procedures = []
+    for procedure in procedures:
+      formatted_procedures.append(procedure['Name'])
+
+    return formatted_procedures
 
 
   # load in any exceptions, ie known troublemakers for syntax error
@@ -102,5 +111,30 @@ class DbSearcher:
       column_list.append(column_name)
     
     return column_list
+
+
+  def get_tables_associated_to_view(self):
+    sql = (f"""SELECT DISTINCT v.name AS view_name, t.name AS table_name
+    FROM sys.sql_dependencies d
+    INNER JOIN sys.views v ON v.object_id = d.object_id
+    INNER JOIN sys.tables t ON t.object_id = d.referenced_major_id
+    ORDER BY view_name, table_name""")
+    self.dbc.cursor.execute(sql)
+    table = self.dbc.cursor.fetchall()
+
+    return table
+
+    
+  def get_tables_associated_to_proc(self):
+    sql = (f"""SELECT DISTINCT v.name AS proc_name, t.name AS table_name
+    FROM sys.sql_dependencies d
+    INNER JOIN sys.procedures v ON v.object_id = d.object_id
+    INNER JOIN sys.tables t ON t.object_id = d.referenced_major_id
+    ORDER BY proc_name, table_name""")
+    self.dbc.cursor.execute(sql)
+    table = self.dbc.cursor.fetchall()
+
+    return table
+
 
 
