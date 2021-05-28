@@ -2,10 +2,11 @@ import tableauserverclient as TSC
 import json
 
 secrets = json.loads(open("secrets.json").read())
-user = secrets["user"]
-psswd = secrets["psswd"]
-server = secrets["server"]
-tableau_auth = TSC.TableauAuth(user, psswd)
+user = secrets["users"]["user2"]
+username = user["username"]
+password = user["password"]
+server = secrets["servers"]["server2"]
+tableau_auth = TSC.TableauAuth(user, password)
 server = TSC.Server(server)
 
 with server.auth.sign_in(tableau_auth):
