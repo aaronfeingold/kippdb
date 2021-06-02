@@ -7,6 +7,27 @@ class DbSearcher:
     self.exceptions = self.exceptions()
 
 
+  # Query dbwh and return an itterable array of all table names
+  # will be sorted at main run time
+  def list_table_names_from_db(self):
+    sql = "SELECT table_name FROM information_schema.tables"
+    self.dbc.cursor.execute(sql)
+    tables = self.dbc.cursor.fetchall()
+    table_names_list = []
+
+    # change slice of tables list here
+    # ex-> for table in tables[1:5]: do something
+    for table in tables:
+      if table["table_name"] not in self.exceptions:
+        table_name = table["table_name"]
+        table_names_list.append(table_name)
+
+    if table_names_list:
+      return table_names_list
+    else:
+      return "ERROR"
+
+
   def find(self, source, targets):
     if targets == "views":
       return self.get_associated_views(source)
@@ -62,26 +83,9 @@ class DbSearcher:
     return exceptions
 
 
-  # Query and return an itterable array
-  def list_table_names_from_db(self):
-    sql = "SELECT table_name FROM information_schema.tables"
-    self.dbc.cursor.execute(sql)
-    tables = self.dbc.cursor.fetchall()
-    table_names_list = []
-
-    for table in tables:
-      if table["table_name"] not in self.exceptions:
-        table_name = table["table_name"]
-        table_names_list.append(table_name)
-
-    if table_names_list:
-      return table_names_list
-    else:
-      return "ERROR"
-
 
   # getter does the work of packaging up all info
-  # returns the ultimate query
+  # returns the ultimate query for what columns are in any table
   def tables__columns_getter(self):
     tables_columns = []
 
@@ -126,7 +130,7 @@ class DbSearcher:
     return tables
 
   # runs sql on a given stored procedure and returns all associated tables  
-  def get_tables_associated_to_proc(self, sp):
+  def get_tables_associated_to_proc(self):
     sql = (f"""SELECT DISTINCT v.name AS proc_name, t.name AS table_name
     FROM sys.sql_dependencies d
     INNER JOIN sys.procedures v ON v.object_id = d.object_id

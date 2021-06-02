@@ -5,6 +5,7 @@ service_account.json
 token.json
 data.json
 data.csv
+map.csv
 
 #CHACHE
 /services/__pycache__
