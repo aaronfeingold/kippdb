@@ -1,4 +1,4 @@
-### Description:
+## Description:
 This python application offers services to connect to and query a MSSQL database warehouse.
 
 In test are the exporter and tableauServerClient modules. 
@@ -13,9 +13,9 @@ Thus, when identifying what table or views are extracted to Tableau, it will the
 identify the where along the chain exists the source data. This will help in decreasing troubleshooting time
 by already having these sql query results availble to search. 
 
-### Usage steps:
+## Usage steps:
 
-## Download and Install
+### Download and Install
 
 1. Click the green button "Code". Drop down menu will give a few ways to download to your machine.
 
@@ -24,7 +24,7 @@ by already having these sql query results availble to search.
 2. In a command terminal/shell, change into the root directory of the project:
   - download and install dependacies with pip: pip install
 
-## Update secretsTemplate.json
+### Update secretsTemplate.json
 
 1. There is a file in the root directory called secretsTemplate.json
   - This file must be updated manually to represent your secrets
@@ -35,7 +35,7 @@ by already having these sql query results availble to search.
 
 2. please reach out to me at ajfeingold88@gmail.com with questions to fill this out.
 
-## Run Main.py
+### Run Main.py
 
 1. If dependancies are downloaded, including python, in the root directory in your command line/shell
  - run: python main.py
