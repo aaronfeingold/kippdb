@@ -4,6 +4,7 @@ secrets.json
 service_account.json
 token.json
 data.json
+data.csv
 
 #CHACHE
 /services/__pycache__

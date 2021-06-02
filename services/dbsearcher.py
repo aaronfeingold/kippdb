@@ -16,7 +16,7 @@ class DbSearcher:
       return self.get_associated_stored_procedures(source)
 
 
-
+  # runs sql on a given table and returns all associated views
   def get_associated_views(self, table_name):
     sql = f"SELECT Name FROM sys.views WHERE OBJECT_DEFINITION(OBJECT_ID) LIKE '%{table_name}%'"
     self.dbc.cursor.execute(sql)
@@ -28,7 +28,7 @@ class DbSearcher:
 
     return formatted_views
 
-
+  # runs sql on a given table and returns all associated triggers
   def get_associated_triggers(self, table_name):
     sql = f"SELECT Name FROM sys.triggers WHERE OBJECT_DEFINITION(OBJECT_ID) LIKE '%{table_name}%'"
     self.dbc.cursor.execute(sql)
@@ -41,6 +41,7 @@ class DbSearcher:
     return formatted_triggers
 
 
+  # runs sql on a given table and returns all associated stored procedures
   def get_associated_stored_procedures(self, table_name):
     sql = f"SELECT Name FROM sys.procedures WHERE OBJECT_DEFINITION(OBJECT_ID) LIKE '%{table_name}%'"
     self.dbc.cursor.execute(sql)
@@ -112,7 +113,7 @@ class DbSearcher:
     
     return column_list
 
-
+  # runs sql on a given view and returns all associated tables
   def get_tables_associated_to_view(self):
     sql = (f"""SELECT DISTINCT v.name AS view_name, t.name AS table_name
     FROM sys.sql_dependencies d
@@ -120,21 +121,21 @@ class DbSearcher:
     INNER JOIN sys.tables t ON t.object_id = d.referenced_major_id
     ORDER BY view_name, table_name""")
     self.dbc.cursor.execute(sql)
-    table = self.dbc.cursor.fetchall()
+    tables = self.dbc.cursor.fetchall()
 
-    return table
+    return tables
 
-    
-  def get_tables_associated_to_proc(self):
+  # runs sql on a given stored procedure and returns all associated tables  
+  def get_tables_associated_to_proc(self, sp):
     sql = (f"""SELECT DISTINCT v.name AS proc_name, t.name AS table_name
     FROM sys.sql_dependencies d
     INNER JOIN sys.procedures v ON v.object_id = d.object_id
     INNER JOIN sys.tables t ON t.object_id = d.referenced_major_id
     ORDER BY proc_name, table_name""")
     self.dbc.cursor.execute(sql)
-    table = self.dbc.cursor.fetchall()
+    tables = self.dbc.cursor.fetchall()
 
-    return table
+    return tables
 
 
 

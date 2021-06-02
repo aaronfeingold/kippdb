@@ -11,9 +11,9 @@ class GetDatabaseConnection:
   def conn(self):
     secrets = json.loads(open("secrets.json").read())
 
-    server = secrets["servers"]["server1"]
     user = secrets["users"]["user1"]["username"]
     password = secrets["users"]["user1"]["password"]
+    server = secrets["servers"]["server1"]
     db = secrets["dbname"]
 
     conn = pymssql.connect(server, user, password, db)
