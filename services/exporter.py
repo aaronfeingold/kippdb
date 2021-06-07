@@ -3,7 +3,6 @@ import time
 import numpy as geek
 from pyasn1.type.univ import Null
 import pygsheets
-import ipdb
 
 class Exporter:
     def __init__(self):

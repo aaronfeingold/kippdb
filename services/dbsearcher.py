@@ -87,9 +87,10 @@ class DbSearcher:
   # getter does the work of packaging up all info
   # returns the ultimate query for what columns are in any table
   def tables__columns_getter(self):
+    table_names = self.list_table_names_from_db()
     tables_columns = []
 
-    for table_name in self.table_names:
+    for table_name in table_names:
       print(table_name)
       if table_name not in self.exceptions:
         column_list = self.get_column_names(table_name=table_name)
