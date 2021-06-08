@@ -15,9 +15,9 @@ def run():
   print("querying db for associations to tables")
   result_list = []
 
-  # this is a lot of code for a main. this can be abstracted to another service
+  # this is a lot of code for a main file.
+  # some things can be abstracted to another service
   # could be called "db_obj_maker" and called on each obj
-  # each obj then get exported?
   for db_object_name in sorted(tables_list):
     print(db_object_name)
     obj = dict()
@@ -33,12 +33,9 @@ def run():
     result_list.append(obj)
   
   # for now, we will export to CSV and then copy and paste over to google sheets
-  # this seems obviously redundant, why not just go straight to csv?
-  # reason: not convinced this should be written to a file here, but rather is 
-  # exported (by an export module) to a more user friendly source.
-  # however, vpn makes it impossible to use GoogleSheets at api
-  # and the script to toggle vpn on and off is more complex than necessary for the
-  # purposes of the dbwh dictionary.
+  # should be exported (by an export module) to a more user friendly source.
+  # however, while vpn is enable makes it impossible to use GoogleSheets api
+  # programming a toggle on/off of CiscoAnyConnect is more complex than the scope of the problem.
 
   with open('map.csv', mode='w') as file:
     writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)

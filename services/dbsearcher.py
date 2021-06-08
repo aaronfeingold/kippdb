@@ -27,7 +27,10 @@ class DbSearcher:
     else:
       return "ERROR"
 
-
+  # TO-DO: 
+  # find method can be refactored to call self.get_associated(source, obj)
+  # then use string interpolation with the sql query
+  # reduce redunant code, keeps it dry.
   def find(self, source, targets):
     if targets == "views":
       return self.get_associated_views(source)

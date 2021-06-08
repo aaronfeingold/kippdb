@@ -1,6 +1,5 @@
 from services.dbconn import GetDatabaseConnection
 from services.dbsearcher import DbSearcher
-import csv
 
 def run():
   print("connecting")
@@ -12,3 +11,5 @@ def run():
   tc = dbs.tables__columns_getter()
 
   return tc
+
+run()
